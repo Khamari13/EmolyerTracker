@@ -18,7 +18,7 @@ connection.connect(function(err) {
     initApp()
 })
 
-const initApp = function() {
+function initApp() {
     inquirer
     .prompt({
         name: "option",
@@ -71,3 +71,5 @@ const initApp = function() {
         }
     })
 }
+// view departments
+function viewDepartments()
