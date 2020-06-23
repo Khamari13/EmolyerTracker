@@ -45,8 +45,8 @@ function startApp() {
                 value: "add_Role"
             },
             {
-                name: "Add Employees",
-                value: "add_Employees"
+                name: "Add Employee",
+                value: "add_Employee"
             },
             {
                 name: "Update Role",
@@ -152,7 +152,7 @@ function addRole() {
         },
         {
             name: "department",
-            type: "input",
+            type: "list",
             message: "Choose a department",
             choices: () => {
                 let disDepartmaent = [];
@@ -167,13 +167,13 @@ function addRole() {
                 let rolePosition = answer.position;
                 let roleSalary = answer.salary;
                 let depID = parseInt(answer.department.split("")[0]);
-                const query = "INSERT INTO role (rolePosition, roleSalary, depID) VALUES (?,?,?)";
+                const query = "INSERT INTO role (title, salary, department_id) VALUES (?,?,?)";
                 connection.query(query, [rolePosition, roleSalary, depID], err => {
                     if (err) throw err;
+                    //takes you to homepage
+                    startApp();
                 });
             });
- //takes you to homepage
-        startApp();
     });
 
 }
@@ -216,11 +216,11 @@ const addEmployee = () => {
                 const query = "INSERT INTO employee SET ?";
                 connection.query(query, answer, err => {
                     if (err) throw err;
+                    startApp();
                 });
-                startApp();
+                
             });
-        }
-    )
+    })
 };
 
 
@@ -228,7 +228,7 @@ const addEmployee = () => {
 const updateRole = () => {
     connection.query("SELECT * FROM role", (err, results) => {
         const query = "SELECT * FROM employee";
-        connection.query(query, (err,res) => {
+        connection.query(query, (err, res) => {
             if (err) throw err;
             inquirer
                 .prompt([
